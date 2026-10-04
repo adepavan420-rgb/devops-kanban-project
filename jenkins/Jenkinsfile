@@ -1,0 +1,43 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                echo 'Checking out source code'
+            }
+        }
+
+        stage('Validate Files') {
+            steps {
+                bat 'if not exist app\\index.html exit /b 1'
+                bat 'if not exist app\\script.js exit /b 1'
+                bat 'if not exist app\\style.css exit /b 1'
+            }
+        }
+
+        stage('Smoke Test') {
+            steps {
+                echo 'Running basic project smoke test'
+                bat 'findstr /C:"Kanban Workflow Visualizer" app\\index.html'
+                bat 'findstr /C:"function render" app\\script.js'
+            }
+        }
+
+        stage('Package') {
+            steps {
+                bat 'if exist kanban-package.zip del kanban-package.zip'
+                powershell "Compress-Archive -Path app -DestinationPath kanban-package.zip"
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Kanban project CI pipeline completed successfully.'
+        }
+        failure {
+            echo 'Pipeline failed. Check the stage logs.'
+        }
+    }
+}

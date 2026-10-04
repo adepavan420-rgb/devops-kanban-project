@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevOps Kanban Workflow</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div>
+    <p class="eyebrow">DEVOPS PROJECT</p>
+    <h1>Kanban Workflow Visualizer</h1>
+    <p class="subtitle">Track project progress and identify workflow bottlenecks.</p>
+  </div>
+  <button id="resetBtn" class="secondary">Reset Demo</button>
+</header>
+
+<main>
+  <section class="stats">
+    <div class="stat"><span>Total Tasks</span><strong id="total">0</strong></div>
+    <div class="stat"><span>Completed</span><strong id="completed">0</strong></div>
+    <div class="stat"><span>Blocked</span><strong id="blocked">0</strong></div>
+    <div class="stat"><span>Progress</span><strong id="progress">0%</strong></div>
+  </section>
+
+  <section class="control-panel">
+    <form id="taskForm">
+      <input id="taskTitle" placeholder="Enter a new task..." required maxlength="80">
+      <select id="taskStage">
+        <option value="backlog">Backlog</option>
+        <option value="todo">To Do</option>
+        <option value="progress">In Progress</option>
+        <option value="review">Code Review</option>
+        <option value="testing">Testing</option>
+        <option value="blocked">Blocked</option>
+        <option value="done">Done</option>
+      </select>
+      <button type="submit">Add Task</button>
+    </form>
+    <div id="alert" class="alert" aria-live="polite"></div>
+  </section>
+
+  <section class="workflow">
+    <div class="flow-label">Workflow</div>
+    <div class="flow">
+      <span>Backlog</span><b>→</b><span>To Do</span><b>→</b>
+      <span>In Progress</span><b>→</b><span>Code Review</span><b>→</b>
+      <span>Testing</span><b>→</b><span>Done</span>
+    </div>
+  </section>
+
+  <section id="board" class="board"></section>
+</main>
+
+<footer>
+  <p>DevOps Kanban Workflow Visualization • Academic Project Demo</p>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>
